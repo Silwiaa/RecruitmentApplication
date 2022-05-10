@@ -11,7 +11,6 @@ public class RecruitmentApplication {
 
     public static Map<Character, Integer> countEachArgumentLetter(String arg) {
         Map<Character, Integer> characterMap = new HashMap<>();
-        List<Character> characterList = new ArrayList<>();
         arg = arg.toLowerCase();
         char[] characterArray = arg.toCharArray();
 
@@ -21,13 +20,14 @@ public class RecruitmentApplication {
                     characterMap.put(character, characterMap.get(character) + 1);
                 } else {
                     characterMap.put(character, 1);
-                    characterList.add(character);
                 }
             }
         }
 
-        Collections.sort(characterList);
-        characterList.stream().forEach(ch -> System.out.println(ch + " = " + characterMap.get(ch)));
+        characterMap.entrySet().stream()
+                .sorted(Map.Entry.<Character, Integer>comparingByKey())
+                .forEach(System.out::println);
+
         return characterMap;
     }
 }
